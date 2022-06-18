@@ -20,7 +20,7 @@ const processPublishedNotification = async () => {
   const matchedCount = updateDatasetNotification.matchedCount;
 
   const sendMailParameters: SendInterface = {
-    to: 'lakeside763@gmail.com',
+    to: 'metrics@clooper.com',
     subject: 'Published property notification',
     text: 'Published notification',
     html: mailbody(matchedCount, propertyNames),
@@ -28,6 +28,7 @@ const processPublishedNotification = async () => {
   if (matchedCount) {
     await mailgun.send(sendMailParameters);
     console.log('Published notification sent successfully');
+    return;
   }
   console.log('No published notification sent');
 }
@@ -48,12 +49,14 @@ const mailbody = (matchedCount: number, propertyNames: string[]) => {
         <title>Published Property Notification</title>
       </head>
       <body>
-        <h5>Latest published property</h5>
-        <p>Count: ${matchedCount}</p>
+        <h3>Latest published property</h3>
+        <p>${matchedCount} property newly published</p>
         <ul>
           Property Names:
           ${names}
         </ul>
+        <p>Total Count: ${matchedCount}</p>
+        <P styles='margin-top: 30px'>By: Moses Idowu</P>
       </body>
     </html>
   `
