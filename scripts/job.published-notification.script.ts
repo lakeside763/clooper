@@ -7,7 +7,7 @@ mongoose.connect(mongoDB);
 
 const mailgun = new MailgunService(config);
 
-const processPublishedNotification = async () => {
+export const processPublishedNotification = async () => {
   const twentyMinutesAgo = Sugar.Date.addMinutes(new Date(Date.now()), -20);
 
   const dataset = await Property.where('is_published').equals(true)
