@@ -1,6 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
+import joi from 'joi';
 
 export interface IProperty {
+  _id?: ObjectId;
   name: string;
   address: string;
   type: string;
@@ -9,8 +11,9 @@ export interface IProperty {
   total_rooms: string;
   occupancy_type: string;
   rent_amount: number;
-  rent_frequency: string
+  rent_frequency: number
   is_published: boolean;
+  notification: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -27,8 +30,15 @@ const propertySchema = new mongoose.Schema<IProperty>({
   total_rooms: Number,
   occupancy_type: String,
   rent_amount: Number,
-  rent_frequency: String,
-  is_published: Boolean,
+  rent_frequency: Number,
+  is_published: {
+    type: Boolean,
+    default: () => false,
+  },
+  notification: {
+    type: String,
+    default: () => 'PENDING',
+  },
   created_at: {
     type: Date,
     immutable: true,
@@ -40,6 +50,19 @@ const propertySchema = new mongoose.Schema<IProperty>({
   }
 });
 
+
 const Property = mongoose.model<IProperty>('Property', propertySchema);
+
+export const propertyValidation = joi.object({
+  name: joi.string().required(),
+  address: joi.string().required(),
+  type: joi.string().required(),
+  description: joi.string().required(),
+  image_url: joi.string().required(),
+  total_rooms: joi.number().required(),
+  occupancy_type: joi.string().required(),
+  rent_amount: joi.number().required(),
+  rent_frequency: joi.number().required(),
+})
 
 export default Property;

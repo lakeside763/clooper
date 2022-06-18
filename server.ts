@@ -11,25 +11,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(compression());
 
 const mongoDB = 'mongodb://127.0.0.1/clooper';
-
+mongoose.connect(mongoDB);
 
 export const port = 8000;
 
-
-const startConnection = () => {
-  mongoose.connect(mongoDB);
-
-  const services = {
-    property: new PropertyService()
-  }
-  
-  propertyRoutes(app, services);
-  
-  app.use(errorHandler);
-  
+const services = {
+  property: new PropertyService()
 }
-
-startConnection();
+propertyRoutes(app, services);
+app.use(errorHandler);
 
 
 
