@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { errorHandler } from './middlewares/error-handler';
 import propertyRoutes from './routes/property.routes';
 import { PropertyService } from './services';
+import { Server } from 'http';
 
 export const app = express();
 app.use(express.json());
@@ -20,6 +21,14 @@ const services = {
 }
 propertyRoutes(app, services);
 app.use(errorHandler);
+
+export async function shutdown(server: Server) {
+  server.close();
+  mongoose.disconnect();
+  console.info('Received kill signal, shutting down gracefully');
+  return process.exit();
+}
+
 
 
 
