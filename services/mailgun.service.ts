@@ -1,13 +1,5 @@
 import mailgun from 'mailgun-js';
 
-const MAILGUN_API_KEY= '6d5f58d45a60bfa69aaf1a0fbffffef6-7cd1ac2b-87b2c5d7'
-const MAILGUN_DOMAIN= 'sandboxef30ef9a7ac644f0ba906505b4a45a9e.mailgun.org'
-
-export const config = {
-  apiKey: MAILGUN_API_KEY,
-  domain: MAILGUN_DOMAIN
-}
-
 export interface SendInterface {
   from?: string;
   to: string;

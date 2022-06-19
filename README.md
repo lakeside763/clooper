@@ -1,5 +1,5 @@
 ## Getting Started
-
+- Setup env.local enviroment variable using env.local.sample.
 
 To run the application locally:
 ```bash

@@ -5,6 +5,7 @@ import { errorHandler } from './middlewares/error-handler';
 import propertyRoutes from './routes/property.routes';
 import { PropertyService } from './services';
 import { Server } from 'http';
+import config from './config';
 
 export const app = express();
 app.use(express.json());
@@ -14,7 +15,7 @@ app.use(compression());
 const mongoDB = 'mongodb://127.0.0.1/clooper';
 mongoose.connect(mongoDB);
 
-export const port = 8000;
+export const { port } = config;
 
 const services = {
   property: new PropertyService()

@@ -1,11 +1,12 @@
 import Sugar from 'sugar';
 import Property from '../models/property.model';
 import mongoose, { ObjectId } from 'mongoose';
-import MailgunService, { config, SendInterface } from '../services/mailgun.service';
+import config from '../config';
+import MailgunService, { SendInterface } from '../services/mailgun.service';
 const mongoDB = 'mongodb://127.0.0.1/clooper';
 mongoose.connect(mongoDB);
 
-const mailgun = new MailgunService(config);
+const mailgun = new MailgunService(config.mailgun);
 
 export const processPublishedNotification = async () => {
   const twentyMinutesAgo = Sugar.Date.addMinutes(new Date(Date.now()), -20);
